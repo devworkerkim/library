@@ -1,3 +1,34 @@
+// function Book(title, author, pages, read) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+//     this.info = function() {
+//         return `${this.title} by ${this.author}, ${this.pages} pages`;
+//     }
+//     this.readToggle = function() {
+//         this.read = !this.read;
+//     }
+// }
+        
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    get info() {
+        return `${this.title} by ${this.author}, ${this.pages} pages`;
+    }
+
+    readToggle() {
+        this.read = !this.read;
+    }
+
+}
+
 if (!localStorage.getItem('myLibrary')) {
     localStorage.setItem('myLibrary', JSON.stringify([
         {
@@ -32,19 +63,6 @@ myLibrary.forEach(function (book, ind) {
     myLibrary[ind] = new Book(book.title, book.author, book.pages, book.read);
 });
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = function() {
-        return `${this.title} by ${this.author}, ${this.pages} pages`;
-    }
-    this.readToggle = function() {
-        this.read = !this.read;
-    }
-}
-
 function addBookToLibrary(book) {
   myLibrary.push(book)
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
@@ -71,7 +89,7 @@ function displayLibrary(library) {
             displayLibrary(myLibrary);
         };
         const paragraph = document.createElement('p');
-        paragraph.innerText = book.info();
+        paragraph.innerText = book.info;
         const div = document.createElement('div');
         div.classList.add('book');
         div.appendChild(paragraph);
