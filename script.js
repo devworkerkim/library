@@ -100,18 +100,21 @@ function displayLibrary(library) {
 }
 
 document.querySelector('#addBook').addEventListener('click', function() {
-    const title = document.querySelector('#title').value;
-    const author = document.querySelector('#author').value;
-    const pages = document.querySelector('#pages').value;
-    const read = document.querySelector('#read').checked;
-    if (title && author && pages) {
-        addBookToLibrary(new Book(title, author, pages, read));
+    const title = document.querySelector('#title');
+    const author = document.querySelector('#author');
+    const pages = document.querySelector('#pages');
+    const read = document.querySelector('#read');
+    if (title.validity.valid && author.validity.valid && pages.validity.valid) {
+        addBookToLibrary(new Book(title.value, author.value, pages.value, read.checked));
         localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
         displayLibrary(myLibrary);
-        document.querySelector('#title').value = '';
-        document.querySelector('#author').value = '';
-        document.querySelector('#pages').value = '';
-        document.querySelector('#read').checked = false;
+        title.value = '';
+        author.value = '';
+        pages.value = '';
+        read.checked = false;
+    }
+    else {
+        document.querySelector('#error_messages').innerText = `${title.validity.valid ? '' : 'Title: ' + title.validationMessage + '\n'}${author.validity.valid ? '' : 'Author: ' + author.validationMessage + '\n'}${pages.validity.valid ? '' : 'Pages: ' + pages.validationMessage + '\n'}`;
     }
 });
 
